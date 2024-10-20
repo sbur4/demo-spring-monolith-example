@@ -1,0 +1,72 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.18'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+//		languageVersion = JavaLanguageVersion.of(8)
+	}
+}
+
+wrapper {
+	gradleVersion = '8.9'
+	distributionType = Wrapper.DistributionType.BIN
+}
+
+//application {
+//	mainClass = 'org.example.DemoApplication'
+//}
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+	gradlePluginPortal()
+}
+
+ext {
+	set('springModulithVersion', "1.2.4")
+}
+
+dependencies {
+	//
+//	 https://mvnrepository.com/artifact/org.springframework.modulith/spring-modulith-starter-core
+//	 implementation group: 'org.springframework.modulith', name: 'spring-modulith-starter-core', version: '1.2.4'
+	// https://mvnrepository.com/artifact/org.springframework.modulith/spring-modulith-events-core
+//	 implementation group: 'org.springframework.modulith', name: 'spring-modulith-events-core', version: '1.2.4'
+	// https://mvnrepository.com/artifact/org.springframework.modulith/spring-modulith-api
+//  	 implementation group: 'org.springframework.modulith', name: 'spring-modulith-api', version: '1.2.4'
+	// https://mvnrepository.com/artifact/org.springframework.modulith/spring-modulith-core
+//	implementation 'org.springframework.modulith:spring-modulith-core:1.2.4'
+
+	implementation 'org.springframework.modulith:spring-modulith-starter-core'
+	implementation 'org.springframework.modulith:spring-modulith-events-core'
+	implementation 'org.springframework.modulith:spring-modulith-api'
+	implementation 'org.springframework.modulith:spring-modulith-core'
+
+	// Logging
+	implementation 'org.springframework.boot:spring-boot-starter-logging'
+
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web
+	implementation 'org.springframework.boot:spring-boot-starter-web:2.7.18'
+
+	//
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.modulith:spring-modulith-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.modulith:spring-modulith-bom:${springModulithVersion}"
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
